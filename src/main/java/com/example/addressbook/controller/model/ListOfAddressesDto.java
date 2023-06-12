@@ -1,20 +1,20 @@
 package com.example.addressbook.controller.model;
 
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Singular;
 
 @AllArgsConstructor
 @Builder
 @Getter
-public class AddressListDto extends RepresentationModel<AddressListDto> {
-    UUID id;
+public class ListOfAddressesDto extends RepresentationModel<ListOfAddressesDto> {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    @Singular
+    private final List<AddressListDto> addresses;
+
 }

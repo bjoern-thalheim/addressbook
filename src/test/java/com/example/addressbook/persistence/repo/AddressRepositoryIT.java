@@ -32,12 +32,14 @@ class AddressRepositoryIT {
     public void whenAddressIsWrittenIntoDbFindAllShouldFindOneResult() {
         // given
         Address address = new Address("John", "Doe", "john.doe@gmail.com");
+        assertThat(address.getId()).isNull();
         repository.save(address);
         // when
         Iterable<Address> addresses = repository.findAll();
         // then
         assertThat(addresses).hasSize(1);
         assertThat(addresses.iterator().next()).isEqualTo(address);
+        assertThat(addresses.iterator().next().getId()).isNotNull();
     }
 
     @Test

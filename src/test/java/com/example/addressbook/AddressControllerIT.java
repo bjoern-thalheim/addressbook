@@ -6,14 +6,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.example.addressbook.controller.AddressController;
 import com.example.addressbook.controller.model.AddressListDto;
+import com.example.addressbook.controller.model.ListOfAddressesDto;
 import com.example.addressbook.persistence.repo.AddressRepository;
 
 @SpringBootTest
@@ -34,8 +33,8 @@ class AddressControllerIT {
     public void testEmptyListIsReturnedWhenDatabaseIsEmpty() {
         // given: no interactions before, empty datadase
         // when
-        List<AddressListDto> addresses = controller.getAddresses();
-        assertThat(addresses).isEmpty();
+        ListOfAddressesDto addresses = controller.getOverview();
+        assertThat(addresses.getAddresses()).isEmpty();
     }
 
     @Test
@@ -47,7 +46,7 @@ class AddressControllerIT {
             .email("john.doe@gmail.com").build();
         controller.addAddress(address);
         // when
-        List<AddressListDto> addresses = controller.getAddresses();
+        List<AddressListDto> addresses = controller.getOverview().getAddresses();
         // then
         assertThat(addresses).hasSize(1);
         AddressListDto item = addresses.iterator().next();
